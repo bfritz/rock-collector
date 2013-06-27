@@ -32,7 +32,7 @@ scalacOptions ++= Seq(
   "-deprecation"
   ,"-unchecked"
   ,"-encoding", "UTF-8"
-  ,"-target:jvm-1.7"
+  ,"-target:jvm-1.6"
   // "-optimise"   // this option will slow your build
 )
 
