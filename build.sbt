@@ -89,3 +89,5 @@ resolvers ++= Seq(
 mainClass in AssemblyKeys.assembly := Some("com.bfritz.rockcollector.GemServer")
 
 test in AssemblyKeys.assembly := {}
+
+net.virtualvoid.sbt.graph.Plugin.graphSettings
