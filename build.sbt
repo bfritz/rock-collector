@@ -68,19 +68,14 @@ javacOptions ++= Seq("-Xlint:unchecked", "-Xlint:deprecation")
 /* dependencies */
 libraryDependencies ++= Seq (
   "com.github.nscala-time" %% "nscala-time" % "0.4.2"
-  // -- network --
-  ,"net.databinder.dispatch" %% "dispatch-core" % "0.10.1"
   // -- testing --
   , "org.scalatest" % "scalatest_2.10" % "2.0.M5b" % "test"
   , "org.scalamock" %% "scalamock-scalatest-support" % "3.0.1" % "test" 
   // -- Logging --
   ,"ch.qos.logback" % "logback-classic" % "1.0.13"
-  // -- Akka --
-  ,"com.typesafe.akka" %% "akka-testkit" % "2.1.4" % "test"
-  ,"com.typesafe.akka" %% "akka-actor" % "2.1.4"
-  ,"com.typesafe.akka" %% "akka-slf4j" % "2.1.4"
-  // -- Sql --
-  ,"com.typesafe.slick" %% "slick" % "1.0.1"
+  // -- Netty --
+  ,"io.netty" % "netty-handler" % "4.0.0.CR6"
+  ,"io.netty" % "netty-codec-http" % "4.0.0.CR6"
 )
 
 /* you may need these repos */

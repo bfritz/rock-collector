@@ -11,7 +11,7 @@
     <appender-ref ref="console" />
   </logger>
 
-  <logger name="akka" level="info" additivity="false">
+  <logger name="io.netty" level="info" additivity="false">
     <appender-ref ref="console" />
   </logger>
 
