@@ -1,5 +1,7 @@
 package com.bfritz.rockcollector
 
+import com.typesafe.scalalogging.slf4j.Logging
+
 import io.netty.bootstrap.ServerBootstrap
 import io.netty.channel.nio.NioEventLoopGroup
 import io.netty.channel.{
@@ -22,11 +24,12 @@ import java.net.InetSocketAddress
  * <a href="https://github.com/netty/netty/blob/master/example/src/main/java/io/netty/example/telnet/TelnetServer.java">TelnetServer</a>
  * example.
  */
-object GemServer extends App {
+object GemServer extends App with Logging {
   val port = Option(System.getenv("PORT")).map(_.toInt).getOrElse(8089)
   start(port)
 
   def start(port: Int) {
+    logger.info(s"Starting GemServer on port ${port}.")
     val bossGroup, workerGroup = new NioEventLoopGroup()
     try {
       val socket = new InetSocketAddress(port)
