@@ -1,3 +1,7 @@
+import AssemblyKeys._
+
+assemblySettings
+
 name := "rock-collector"
 
 organization := "com.bfritz"
@@ -87,8 +91,6 @@ resolvers ++= Seq(
 )
 
 /* assembly plugin */
-mainClass in AssemblyKeys.assembly := Some("com.bfritz.Rock_Collector.Main")
-
-assemblySettings
+mainClass in AssemblyKeys.assembly := Some("com.bfritz.rockcollector.GemServer")
 
 test in AssemblyKeys.assembly := {}
