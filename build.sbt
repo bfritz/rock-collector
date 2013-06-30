@@ -77,6 +77,7 @@ libraryDependencies ++= Seq (
   // -- Netty --
   ,"io.netty" % "netty-handler" % "4.0.0.CR6"
   ,"io.netty" % "netty-codec-http" % "4.0.0.CR6"
+  ,"org.javassist" % "javassist" % "3.18.0-GA"
 )
 
 /* you may need these repos */
