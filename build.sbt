@@ -71,6 +71,8 @@ libraryDependencies ++= Seq (
   // -- testing --
   , "org.scalatest" % "scalatest_2.10" % "2.0.M5b" % "test"
   , "org.scalamock" %% "scalamock-scalatest-support" % "3.0.1" % "test" 
+  // -- Configuration --
+  ,"com.typesafe" % "config" % "1.0.1"
   // -- Logging --
   ,"ch.qos.logback" % "logback-classic" % "1.0.13"
   ,"com.typesafe" %% "scalalogging-slf4j" % "1.0.1"

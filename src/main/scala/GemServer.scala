@@ -1,5 +1,7 @@
 package com.bfritz.rockcollector
 
+import com.bfritz.rockcollector.plugin.PluginManager
+
 import com.typesafe.scalalogging.slf4j.Logging
 
 import io.netty.bootstrap.ServerBootstrap
@@ -30,7 +32,11 @@ object GemServer extends App with Logging {
   val port = Option(System.getenv("PORT")).map(_.toInt).getOrElse(8089)
   val channelFuture = startGemListener(port)
   channelFuture.addListener(ChannelFutureListener.FIRE_EXCEPTION_ON_FAILURE)
-  channelFuture.sync().channel().closeFuture().sync()
+
+  PluginManager.startPlugins
+
+  val cf = channelFuture.sync()      // start the server
+  cf.channel().closeFuture().sync()  // wait until socket is closed
 
 
   def startGemListener(port: Int): ChannelFuture = {
