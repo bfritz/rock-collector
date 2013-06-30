@@ -80,6 +80,8 @@ libraryDependencies ++= Seq (
   ,"io.netty" % "netty-handler" % "4.0.0.CR6"
   ,"io.netty" % "netty-codec-http" % "4.0.0.CR6"
   ,"org.javassist" % "javassist" % "3.18.0-GA"
+  // -- Guava --
+  ,"com.google.guava" % "guava" % "14.0.1"
 )
 
 /* you may need these repos */
