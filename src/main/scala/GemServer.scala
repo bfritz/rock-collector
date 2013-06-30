@@ -5,6 +5,8 @@ import com.typesafe.scalalogging.slf4j.Logging
 import io.netty.bootstrap.ServerBootstrap
 import io.netty.channel.nio.NioEventLoopGroup
 import io.netty.channel.{
+  ChannelFuture,
+  ChannelFutureListener,
   ChannelHandlerContext,
   ChannelInitializer,
   SimpleChannelInboundHandler}
@@ -26,23 +28,21 @@ import java.net.InetSocketAddress
  */
 object GemServer extends App with Logging {
   val port = Option(System.getenv("PORT")).map(_.toInt).getOrElse(8089)
-  start(port)
+  val channelFuture = startGemListener(port)
+  channelFuture.addListener(ChannelFutureListener.FIRE_EXCEPTION_ON_FAILURE)
+  channelFuture.sync().channel().closeFuture().sync()
 
-  def start(port: Int) {
+
+  def startGemListener(port: Int): ChannelFuture = {
     logger.info(s"Starting GemServer on port ${port}.")
     val bossGroup, workerGroup = new NioEventLoopGroup()
-    try {
-      val socket = new InetSocketAddress(port)
-      new ServerBootstrap()
-        .group(bossGroup, workerGroup)
-        .channel(classOf[NioServerSocketChannel])
-        .handler(new LoggingHandler(LogLevel.INFO))
-        .childHandler(new GemServerInitializer())
-        .bind(socket).sync().channel().closeFuture().sync()
-    } finally {
-        bossGroup.shutdownGracefully()
-        workerGroup.shutdownGracefully()
-    }
+    val socket = new InetSocketAddress(port)
+    new ServerBootstrap()
+      .group(bossGroup, workerGroup)
+      .channel(classOf[NioServerSocketChannel])
+      .handler(new LoggingHandler(LogLevel.INFO))
+      .childHandler(new GemServerInitializer())
+      .bind(socket)
   }
 
   class GemServerInitializer extends ChannelInitializer[SocketChannel] {
