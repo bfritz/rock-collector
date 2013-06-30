@@ -1,5 +1,6 @@
 package com.bfritz.rockcollector
 
+import com.bfritz.rockcollector.event.GemEvent
 import com.bfritz.rockcollector.plugin.PluginManager
 
 import com.typesafe.scalalogging.slf4j.Logging
@@ -22,6 +23,8 @@ import io.netty.handler.codec.http.{
 import io.netty.handler.logging.{LoggingHandler, LogLevel}
 
 import java.net.InetSocketAddress
+
+import org.joda.time.DateTime
 
 /**
  * Netty server that listens for updates from the GEM via TCP socket.
@@ -68,8 +71,10 @@ object GemServer extends App with Logging {
 
   class GemServerHandler extends SimpleChannelInboundHandler[HttpRequest] {
     override def messageReceived(ctx: ChannelHandlerContext, req: HttpRequest) {
+      val ts = DateTime.now
       val qs = new QueryStringDecoder(req.getUri)
       val serialNo = qs.parameters.get("SN").get(0)
+      bus.post(GemEvent(ts, serialNo))
     }
   }
 }
