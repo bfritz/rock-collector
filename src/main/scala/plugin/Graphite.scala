@@ -21,13 +21,12 @@ class Graphite(bus: EventBus) extends GemPlugin with Logging {
 
   val graphite = new InetSocketAddress("localhost", 2003)
   val socketFactory = SocketFactory.getDefault
-  
+
   def name: String = "Graphite"
 
   def start() {
     logger.info(s"$name plugin started.")
     bus.register(this)
-
   }
 
   @Subscribe

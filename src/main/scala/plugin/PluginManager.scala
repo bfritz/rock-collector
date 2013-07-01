@@ -25,7 +25,7 @@ object PluginManager extends Logging {
     def loadPlugin(pluginClass: String, bus: EventBus): GemPlugin = {
       logger.info(s"Loading plugin $pluginClass")
       val clazz = Class.forName(pluginClass)
-      val const = clazz.getConstructors()(0)
+      val const = clazz.getConstructors.head
       const.newInstance(bus).asInstanceOf[GemPlugin]
     }
   }

@@ -3,8 +3,9 @@ package com.bfritz.rockcollector
 import com.bfritz.rockcollector.event.GemEvent
 import com.bfritz.rockcollector.plugin.PluginManager
 
-import com.typesafe.scalalogging.slf4j.Logging
 import com.google.common.eventbus.EventBus
+
+import com.typesafe.scalalogging.slf4j.Logging
 
 import io.netty.bootstrap.ServerBootstrap
 import io.netty.channel.nio.NioEventLoopGroup
@@ -40,9 +41,8 @@ object GemServer extends App with Logging {
 
   PluginManager.startPlugins(bus)
 
-  val cf = channelFuture.sync()      // start the server
-  cf.channel().closeFuture().sync()  // wait until socket is closed
-
+  val cf = channelFuture.sync   // start the server
+  cf.channel.closeFuture.sync   // wait until socket is closed
 
   def startEventBus(): EventBus = {
     logger.info(s"Starting event bus.")
@@ -50,7 +50,7 @@ object GemServer extends App with Logging {
   }
 
   def startGemListener(port: Int): ChannelFuture = {
-    logger.info(s"Starting GemServer on port ${port}.")
+    logger.info(s"Starting GemServer on port $port.")
     val bossGroup, workerGroup = new NioEventLoopGroup()
     val socket = new InetSocketAddress(port)
     new ServerBootstrap()
@@ -73,7 +73,7 @@ object GemServer extends App with Logging {
     override def messageReceived(ctx: ChannelHandlerContext, req: HttpRequest) {
       val ts = DateTime.now
       val qs = new QueryStringDecoder(req.getUri)
-      val serialNo = qs.parameters.get("SN").get(0)
+      val serialNo = qs.parameters.get("SN").head
       bus.post(GemEvent(ts, serialNo))
     }
   }
