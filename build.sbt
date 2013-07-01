@@ -82,6 +82,8 @@ libraryDependencies ++= Seq (
   ,"org.javassist" % "javassist" % "3.18.0-GA"
   // -- Guava --
   ,"com.google.guava" % "guava" % "14.0.1"
+  // -- Automatic Resource Aanagement (ARM)  --
+  ,"com.jsuereth" %% "scala-arm" % "1.3"
 )
 
 /* you may need these repos */
